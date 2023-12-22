@@ -775,7 +775,7 @@ def load_textmate_scheme(tmtheme):
     used_scopes = set()
     default_settings = find_by_scope(all_settings, None)
     if not default_settings:
-        print "Cannot find default settings"
+        print("Cannot find default settings")
         return
     default_settings = default_settings['settings']
 
@@ -829,11 +829,11 @@ def load_textmate_scheme(tmtheme):
             if settings:
                 the_scope = settings['scope']
                 if the_scope:
-                    print "converting attribute " + attr.id + " from TextMate scope " + the_scope
+                    print("converting attribute " + attr.id + " from TextMate scope " + the_scope)
                     used_scopes.add(the_scope)
                 attr.value = attr_from_textmate(settings['settings'], attr.value, background)
             else:
-               print "[!] scope not found: " + attr.scope
+               print("[!] scope not found: " + attr.scope)
     return all_settings, used_scopes
 
 def blend_spy_js_attributes(background):
@@ -876,9 +876,9 @@ def write_idea_scheme(filename):
 
     for attr in all_attributes:
         if attr.value.inherited:
-            print 'inheriting ' + attr.id + ' from ' + attr.parent.id
+            print('inheriting ' + attr.id + ' from ' + attr.parent.id)
         elif isinstance(attr.value, DerivedAttributeValue):
-            print 'transforming IDEA default color for ' + attr.id
+            print('transforming IDEA default color for ' + attr.id)
         fore = attr.value.foreground
         back = attr.value.background
         saveFg = fore and (fore != IGNORE_COLOR_VALUE)
@@ -907,7 +907,7 @@ def write_idea_scheme(filename):
     ET.ElementTree(scheme).write(open(filename, "w+"))
 
 if len(sys.argv) != 3:
-    print 'Usage: colorSchemeTool <TextMate scheme> <IDEA/PyCharm/RubyMine scheme>'
+    print('Usage: colorSchemeTool <TextMate scheme> <IDEA/PyCharm/RubyMine scheme>')
     exit(1)
 
 all_settings, used_scopes = load_textmate_scheme(sys.argv[1])
@@ -918,4 +918,4 @@ write_idea_scheme(sys.argv[2])
 for setting in all_settings:
     scope = setting.get('scope', None)
     if scope and not scope in used_scopes:
-        print "Unused scope: " + scope
+        print("Unused scope: " + scope)
